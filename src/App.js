@@ -4,7 +4,7 @@ import { auth } from './firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 const App = () => {
-  const [phone, setPhone] = useState('+923406018013');
+  const [phone, setPhone] = useState('');
   const [hasFilled, setHasFilled] = useState(false);
   const [otp, setOtp] = useState('');
 
@@ -72,7 +72,14 @@ const App = () => {
               Enter your phone number
             </Typography>
             <form onSubmit={handleSend}>
-              <TextField sx={{ width: '240px' }} variant="outlined" autoComplete="off" label="Phone Number" value={phone} onChange={(event) => setPhone(event.target.value)} />
+              <TextField
+                sx={{ width: '240px' }}
+                variant="outlined"
+                autoComplete="off"
+                label="Enter Phone With country Code"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
               <Button type="submit" variant="contained" sx={{ width: '240px', marginTop: '20px' }}>
                 Sign In with Phone No
               </Button>
