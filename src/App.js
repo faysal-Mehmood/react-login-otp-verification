@@ -2,7 +2,8 @@ import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react';
 import { auth } from './firebase';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-
+// var bulk = require('node-bulk-sms');
+import bulk from 'node-bulk-sms';
 const App = () => {
   const [phone, setPhone] = useState('');
   const [hasFilled, setHasFilled] = useState(false);
@@ -23,20 +24,25 @@ const App = () => {
   };
 
   const handleSend = (event) => {
-    event.preventDefault();
-    setHasFilled(true);
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, phone, appVerifier)
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
-      })
-      .catch((error) => {
-        // Error; SMS not sent
-        console.log(error);
-      });
+    bulk.setUsername('your username');
+    bulk.setPassword('your password');
+    bulk.sendMessage('message will be here', '+923406018013', function (result) {
+      console.log(result);
+    });
+    // event.preventDefault();
+    // setHasFilled(true);
+    // generateRecaptcha();
+    // let appVerifier = window.recaptchaVerifier;
+    // signInWithPhoneNumber(auth, phone, appVerifier)
+    //   .then((confirmationResult) => {
+    //     // SMS sent. Prompt user to type the code from the message, then sign the
+    //     // user in with confirmationResult.confirm(code).
+    //     window.confirmationResult = confirmationResult;
+    //   })
+    //   .catch((error) => {
+    //     // Error; SMS not sent
+    //     console.log(error);
+    //   });
   };
 
   const verifyOtp = (event) => {
